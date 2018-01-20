@@ -1,7 +1,12 @@
-import exifread
+from retrieve_image_data import RtrvData as rd
 # Open image file for reading (binary mode)
-f = open('./phones/i6s/IMG_0471.jpg', 'rb')
-out = open('./exiftest','w')
+x = rd('./')
+tags = x.get_exif('./images/phones/i6s/IMG_0471.jpg',True,True)
 # Return Exif tags
-tags = exifread.process_file(f, details=False,stop_tag='ExposureTime')
-out.writelines(tags)
+
+original = tags['exif datetimeoriginal']
+edited = tags['image datetime']
+if (original == edited):
+	return True
+else:
+	return False
