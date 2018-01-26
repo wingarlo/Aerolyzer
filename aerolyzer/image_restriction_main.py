@@ -37,7 +37,7 @@ def program(fxn, data, exifData, pathname):
         isVerified = {'meetsRest': False, 'error_message': "The file type of the image must be .jpg or .png"}
         return isVerified
     if not fxn.is_res(exifData['exif exifimagewidth'], exifData['exif exifimagelength']):
-        isVerified = {'meetsRest': False, 'error_message': "The image must be in the resolution range 100X100-6000X6000"}
+        isVerified = {'meetsRest': False, 'error_message': "The image must be in the resolution range 600X600-6000X6000"}
         return isVerified
     if not 'gps gpslatitude' in exifData or not 'gps gpslongitude' in exifData:
         isVerified = {'meetsRest': False, 'error_message': "Location services must be enabled for the camera"}

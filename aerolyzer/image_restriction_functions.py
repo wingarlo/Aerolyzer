@@ -39,7 +39,7 @@ class imgRestFuncs(object):
     Returns:        Boolean
     Assumptions:    N/A
     '''
-    def is_edited(self, created, modified):
+    def is_edited(self, modified, created):
         if (created == modified):
             return True
         else:
