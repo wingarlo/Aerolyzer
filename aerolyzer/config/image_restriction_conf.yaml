@@ -14,6 +14,8 @@ acceptedMobileDevices:
  - iPhone 5s
  - iPhone 6
  - iPhone 6s
+ - DROIDX
+ - SM-G730V
 
 imgMaxSizeNumber: 4000000
 imgWidthMin: 100

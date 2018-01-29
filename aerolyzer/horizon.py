@@ -3,43 +3,41 @@ import cv2
 import os
 import numpy as np
 from matplotlib import pyplot as plt
+from retrieve_image_data import RtrvData as Data
 
-def test():
-	print "hi"
-def _testAnalyze(self, directory):
-	included_extensions = ['jpg','JPG']
-	files = [fn for fn in os.listdir(directory) if any(fn.endswith(ext) for ext in included_extensions)]
-	for image in files:
-		img_noblur = cv2.imread(str(directory)+image)
-		img_noblur = cv2.cvtColor(img_noblur, cv2.COLOR_BGR2GRAY)
-		self.getHorizon(str(directory), img_noblur,image)
+#def _is_sky(self, red, green, blue):
+#	maxIndexRed = np.argmin(red)
+#	maxIndexBlue = np.argmin(blue)
+#	maxIndexGreen = np.argmin(green)
 
-def getHorizon(self, directory, img_noblur,image):
-	img = cv2.blur(img_noblur, (10,10))
-	img = cv2.equalizeHist(img)
-	img = cv2.equalizeHist(img)
-	img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-	edges = cv2.Canny(img,150,200) #magic numbers (min & max tolerance)
-	plt.subplot(121),plt.imshow(img,cmap = 'gray')
-	plt.title('Original Image'), plt.xticks([]), plt.yticks([])
-	plt.subplot(122),plt.imshow(edges,cmap = 'gray')
-	plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
-	plt.show()
-	lines = cv2.HoughLines(edges,1,np.pi/180,10) #magic numbers (min line length)
-	print(str(lines))
-	for rho,theta in lines[0]:
-	    if (theta > 5.49  or theta < 0.78) or (theta > 2.35 and theta < 3.92): #limiting angle so that it is not more than 45 deg or less than -45
-		continue
-	    a = np.cos(theta)
-	    b = np.sin(theta)
-	    x0 = a*rho
-	    y0 = b*rho
-	    x1 = int(x0 + 1000*(-b))
-	    y1 = int(y0 + 1000*(a))
-	    x2 = int(x0 - 1000*(-b))
-	    y2 = int(y0 - 1000*(a))
-	    cv2.line(img_noblur,(x1,y1),(x2,y2),(0,255,0),2)
-	cv2.imwrite("results/H_"+image,img_noblur)
+        #insert code to determine if range of max values is accepted as a sky
+
+#	return True
+
+# Create a mask
+data    = Data("./images/img2.jpg")
+img = data.get_rgb('./images/img2.jpg')
+mask = np.zeros(img.shape[:2], np.uint8)
+mask[0:(img.shape[0]/2), 0:img.shape[1]] = 255
+masked_img = cv2.bitwise_and(img,img,mask = mask)
+
+# Create histograms with 16 bins in range 0-255
+color = ('b','g','r')
+for i,col in enumerate(color):
+    histr = cv2.calcHist([img],[i],mask,[16],[0,255])
+    plt.plot(histr,color = col)
+    plt.xlim([0,16])
+plt.show()
+#hist_blue = cv2.calcHist([img],[0],mask,[16],[0,255]);
+#hist_green = cv2.calcHist([img],[1],mask,[16],[0,255]);
+#hist_red = cv2.calcHist([img],[2],mask,[16],[0,255]);
+#plt.hist(hist_red); plt.show()
+#plt.hist(hist_green); plt.show()
+#plt.hist(hist_blue); plt.show()
+#print hist_blue
+#print hist_green
+#print hist_red
+#return self._is_sky(hist_blue, hist_green, hist_red)
 
 #horizon()._testAnalyze("./images/")
 			
