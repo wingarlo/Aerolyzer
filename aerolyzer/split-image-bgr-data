@@ -1,4 +1,4 @@
-img4.jpg
+./images/img4.jpg
 [14.55078125, 422]
 Top half b max 106
 Top half g max 95
@@ -7,7 +7,7 @@ Bottom half b max 128
 Bottom half g max 137
 Bottom half r max 144
 
-img5.jpg
+./images/img5.jpg
 [17.542166666666674, 2183]
 Top half b max 163
 Top half g max 122
@@ -16,7 +16,7 @@ Bottom half b max 160
 Bottom half g max 157
 Bottom half r max 145
 
-img6.jpg
+./images/img6.jpg
 [35.651692708333329, 435]
 Top half b max 82
 Top half g max 71
@@ -24,6 +24,213 @@ Top half r max 65
 Bottom half b max 50
 Bottom half g max 104
 Bottom half r max 119
+
+./images/good-images/1484949757_16_1175.jpg
+[7.4968749999999886, 317]
+
+./images/good-images/1484949900_3_15292.jpg
+[32.841145833333336, 313]
+Top half b max 228
+Top half g max 209
+Top half r max 169
+Bottom half b max 188
+Bottom half g max 168
+Bottom half r max 138
+
+./images/good-images/1484949915_28_14797.jpg
+[12.076041666666669, 134]
+Top half b max 221
+Top half g max 194
+Top half r max 150
+Bottom half b max 215
+Bottom half g max 187
+Bottom half r max 142
+
+./images/good-images/1484949903_9_415.jpg
+[24.349479166666683, 309]
+Top half b max 76
+Top half g max 67
+Top half r max 70
+Bottom half b max 0
+Bottom half g max 0
+Bottom half r max 0
+
+./images/good-images/1484949901_4_5884.jpg
+[9.5380208333333485, 168]
+
+./images/good-images/1484949755_14_559.jpg
+[4.9375000000000142, 189]
+
+./images/good-images/1484949780_44_415.jpg
+[57.364583333333371, 279]
+Top half b max 199
+Top half g max 112
+Top half r max 22
+Bottom half b max 249
+Bottom half g max 161
+Bottom half r max 72
+
+./images/good-images/1484949776_40_88.jpg
+[5.1385416666666686, 319]
+
+./images/good-images/1484949768_30_525.jpg
+[3.9041666666666544, 279]
+
+./images/good-images/1484949910_24_415.jpg
+[57.364583333333371, 279]
+Top half b max 199
+Top half g max 112
+Top half r max 22
+Bottom half b max 249
+Bottom half g max 161
+Bottom half r max 72
+
+./images/good-images/1484949781_46_10521.jpg
+[7.4281249999999943, 199]
+
+./images/good-images/1484949902_6_88.jpg
+[5.1385416666666686, 319]
+
+./images/good-images/1484949923_43_1362.jpg
+[21.36406250000001, 213]
+Top half b max 184
+Top half g max 144
+Top half r max 182
+Bottom half b max 166
+Bottom half g max 182
+Bottom half r max 221
+
+./images/good-images/1484949748_4_10510.jpg
+[3.5838541666666686, 259]
+
+./images/good-images/1484949765_25_60.jpg
+[6.7734375, 169]
+
+./images/good-images/1484949901_5_70.jpg
+[6.4307291666666657, 339]
+
+./images/good-images/1484949752_10_16.jpg
+[15.775000000000006, 317]
+Top half b max 238
+Top half g max 78
+Top half r max 45
+Bottom half b max 190
+Bottom half g max 128
+Bottom half r max 96
+
+./images/good-images/1484949783_48_12610.jpg
+[8.7609375000000114, 175]
+
+./images/good-images/1484949779_43_1611.jpg
+[20.129629629629612, 223]
+Top half b max 103
+Top half g max 91
+Top half r max 80
+Bottom half b max 136
+Bottom half g max 123
+Bottom half r max 235
+
+./images/good-images/1484949903_8_416.jpg
+[9.0296874999999801, 129]
+
+./images/good-images/1484949902_7_417.jpg
+[23.952604166666667, 299]
+Top half b max 0
+Top half g max 0
+Top half r max 1
+Bottom half b max 0
+Bottom half g max 0
+Bottom half r max 1
+
+./images/good-images/1484949777_41_417.jpg
+[23.952604166666667, 299]
+Top half b max 0
+Top half g max 0
+Top half r max 1
+Bottom half b max 0
+Bottom half g max 0
+Bottom half r max 1
+
+./images/good-images/1484949919_37_12610.jpg
+[8.7609375000000114, 175]
+
+./images/good-images/1484949915_29_14796.jpg
+[7.4296874999999858, 278]
+
+./images/good-images/1484949775_39_70.jpg
+[6.4307291666666657, 339]
+
+./images/good-images/1484949925_46_0.jpg
+[27.472395833333337, 101]
+Top half b max 253
+Top half g max 236
+Top half r max 210
+Bottom half b max 194
+Bottom half g max 159
+Bottom half r max 95
+
+./images/good-images/1484949917_33_10521.jpg
+[7.4281249999999943, 199]
+
+./images/good-images/1484949766_27_557.jpg
+[22.805208333333336, 305]
+Top half b max 150
+Top half g max 94
+Top half r max 24
+Bottom half b max 0
+Bottom half g max 0
+Bottom half r max 0
+
+./images/good-images/1484949773_37_15292.jpg
+[32.841145833333336, 313]
+Top half b max 228
+Top half g max 209
+Top half r max 169
+Bottom half b max 188
+Bottom half g max 168
+Bottom half r max 138
+
+./images/good-images/1484949760_19_2615.jpg
+[24.304687500000014, 203]
+Top half b max 117
+Top half g max 113
+Top half r max 44
+Bottom half b max 157
+Bottom half g max 118
+Bottom half r max 92
+
+./images/good-images/1484949918_35_12612.jpg
+[23.949083503054979, 279]
+Top half b max 74
+Top half g max 121
+Top half r max 174
+Bottom half b max 139
+Bottom half g max 161
+Bottom half r max 144
+
+./images/good-images/1484949781_45_14800.jpg
+[5.3541666666666785, 258]
+
+./images/good-images/1484949782_47_12612.jpg
+[23.949083503054979, 279]
+Top half b max 74
+Top half g max 121
+Top half r max 174
+Bottom half b max 139
+Bottom half g max 161
+Bottom half r max 144
+
+./images/good-images/1484949774_38_5884.jpg
+[9.5380208333333485, 168]
+
+./images/good-images/1484949763_23_447.jpg
+[35.284895833333337, 235]
+Top half b max 248
+Top half g max 213
+Top half r max 148
+Bottom half b max 243
+Bottom half g max 222
+Bottom half r max 171
 
 
 
