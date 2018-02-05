@@ -5,10 +5,10 @@ pics = [f for f in listdir("./images/good-images/") if isfile(join("./images/goo
 good = 0
 bad = 0
 for i in pics:
-	if is_sky(i,"./images/good-images/"+i):
-		good = good + 1
-	else:
-		bad = bad + 1
+    if is_sky(i, "./images/good-images/" + i):
+        good = good + 1
+    else:
+        bad = bad + 1
 
 percent = float(float(good) / float(good+bad))*100.
-print 'horizon detection is' , percent , 'accurate.'
+print 'horizon detection is', percent, 'accurate.'

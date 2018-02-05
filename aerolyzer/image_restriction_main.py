@@ -79,9 +79,9 @@ def main():
     #Retrieve exif data
     if(len(sys.argv) < 2):
         #use default image
-        data    = Data("images/img2.jpg")
-        exifData = data.get_exif("images/img2.jpg", True, False)
-        program(fxn, data, exifData, "images/img2.jpg")
+        data    = Data("./phones/s3mini/20140419_182512.jpg")
+        exifData = data.get_exif("./phones/s3mini/20140419_182512.jpg", True, True)
+        program(fxn, data, exifData, "./phones/s3mini/20140419_182512.jpg")
     elif(len(sys.argv) == 2):
         data    = Data(sys.argv[1])
         exifData = data.get_exif(sys.argv[1], True, False)
