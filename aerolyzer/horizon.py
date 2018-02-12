@@ -23,7 +23,7 @@ def is_sky(a, path):
 
     largest = [0, 0]
     it = dimy / 200 #iterations = total number of rows(pixels) / 200
-    for i in range(dimy / 4, (dimy / 4) * 3, it):   #only looking at the middle half of the image
+    for i in range(dimy / 6, (dimy / 6) * 5, it):   #only looking at the middle half of the image
         ravg = (sum(r[i]) / float(len(r[i])))
         gavg = (sum(g[i]) / float(len(g[i])))
         bavg = (sum(b[i]) / float(len(b[i])))
@@ -37,29 +37,35 @@ def is_sky(a, path):
             largest = [diff,i-(it/2)]
     #print largest
     if largest[0] >= 11:
-        sky = img[0:largest[1],0:dimx]#cropping out landscape
-        #cv2.imwrite('./' + a + '-cropped.jpg', sky)
-        h1 = sky[0:(sky.shape[0] / 2),0:dimx]#top half of sky
+        sky = img[0:largest[1], 0:dimx]#cropping out landscape
+        cv2.imwrite('./' + a + '-cropped.jpg', sky)
+        h1 = sky[0:(sky.shape[0] / 2), 0:dimx]#top half of sky
         h2 = sky[(sky.shape[0] / 2):(sky.shape[0]), 0:dimx]#bottom half
-
-        mask = np.zeros(h1.shape[:2], np.uint8)
-        mask[0:(h1.shape[0] / 2), 0:h1.shape[1]] = 255
-
+        cv2.imwrite('./' + a + '-croppedt.jpg', h1)
+        cv2.imwrite('./' + a + '-croppedb.jpg', h2)
+        mask1 = np.zeros(h1.shape[:2], np.uint8)
+        mask1[0:(h1.shape[0] / 2), 0:h1.shape[1]] = 255
+	hist1 = [0,0,0]
+	hist2 = [0,0,0]
         for i,col in enumerate(color):
-            histr = cv2.calcHist([h1], [i], mask, [255], [0, 255])
-            plt.plot(histr, color = col)
-            plt.xlim([0,255])
-            #print "Top half", color[i], "max", np.argmax(histr)
+            hist1[i] = cv2.calcHist([h1], [i], mask1, [255], [0, 255])
+            #print hist1[i]
+            #plt.plot(hist1[i], color = col)
+            #plt.xlim([0,255])
+            print "Top half", color[i], "max", np.argmax(hist1[i][6:250])
 
-        mask = np.zeros(h2.shape[:2], np.uint8)
-        mask[0:(h2.shape[0] / 2), 0:h2.shape[1]] = 255
-
-        for i,col in enumerate(color):
-            histr = cv2.calcHist([h2], [i], mask, [255], [0, 255])
-            plt.plot(histr, color = col)
-            plt.xlim([0, 255])
-            #print "Bottom half", color[i], "max", np.argmax(histr)
-        return True
+        mask2 = np.zeros(h2.shape[:2], np.uint8)
+        mask2[0:(h2.shape[0] / 2), 0:h2.shape[1]] = 255
+        for j,col in enumerate(color):
+            hist2[j] = cv2.calcHist([h2], [j], mask2, [255], [0, 255])
+            #print hist2[j][20:]
+            #plt.plot(hist2[j], color = col)
+            #plt.xlim([0, 255])
+            print "Bottom half", color[j], "max", np.argmax(hist2[j][6:250])
+        if np.argmax(hist1[0][6:250]) > np.argmax(hist1[2][6:250]) and np.argmax(hist1[0][6:250]) > np.argmax(hist2[0][6:250]):
+            return True
+        else:
+            return False
 
     else:
         return False
