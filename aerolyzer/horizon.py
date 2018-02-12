@@ -36,7 +36,7 @@ def is_sky(a, path):
         if diff > largest[0]:   #only getting the largest intensity drop.
             largest = [diff,i-(it/2)]
     #print largest
-    if largest[0] >= 11:
+    if largest[0] >= 9:
         sky = img[0:largest[1], 0:dimx]#cropping out landscape
         cv2.imwrite('./' + a + '-cropped.jpg', sky)
         h1 = sky[0:(sky.shape[0] / 2), 0:dimx]#top half of sky
@@ -47,12 +47,15 @@ def is_sky(a, path):
         mask1[0:(h1.shape[0] / 2), 0:h1.shape[1]] = 255
 	hist1 = [0,0,0]
 	hist2 = [0,0,0]
+        max1 = [0,0,0]
+        max2 = [0,0,0]
         for i,col in enumerate(color):
             hist1[i] = cv2.calcHist([h1], [i], mask1, [255], [0, 255])
             #print hist1[i]
             #plt.plot(hist1[i], color = col)
             #plt.xlim([0,255])
             print "Top half", color[i], "max", np.argmax(hist1[i][6:250])
+            max1[i] = np.argmax(hist1[i][6:250])
 
         mask2 = np.zeros(h2.shape[:2], np.uint8)
         mask2[0:(h2.shape[0] / 2), 0:h2.shape[1]] = 255
@@ -62,10 +65,9 @@ def is_sky(a, path):
             #plt.plot(hist2[j], color = col)
             #plt.xlim([0, 255])
             print "Bottom half", color[j], "max", np.argmax(hist2[j][6:250])
-        if np.argmax(hist1[0][6:250]) > np.argmax(hist1[2][6:250]) and np.argmax(hist1[0][6:250]) > np.argmax(hist2[0][6:250]):
-            return True
-        else:
-            return False
+            max2[j] = np.argmax(hist2[j][6:250])
+        if max2[2] >= max2[0]:
+            if (sum(max2)) >= (sum(max2)):
+                return True
 
-    else:
-        return False
+    return False
