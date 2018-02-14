@@ -7,7 +7,6 @@ from retrieve_image_data import RtrvData as Data
 
 
 def is_sky(a, path):
-    #print path
     # Create a mask
     data = Data(path)
     img = data.get_rgb(path)
@@ -35,10 +34,8 @@ def is_sky(a, path):
         diff = pavg - avg
         if diff > largest[0]:   #only getting the largest intensity drop.
             largest = [diff,i-(it/2)]
-    #print largest
     if largest[0] >= 11:
         sky = img[0:largest[1],0:dimx]#cropping out landscape
-        #cv2.imwrite('./' + a + '-cropped.jpg', sky)
         h1 = sky[0:(sky.shape[0] / 2),0:dimx]#top half of sky
         h2 = sky[(sky.shape[0] / 2):(sky.shape[0]), 0:dimx]#bottom half
 
@@ -49,7 +46,6 @@ def is_sky(a, path):
             histr = cv2.calcHist([h1], [i], mask, [255], [0, 255])
             plt.plot(histr, color = col)
             plt.xlim([0,255])
-            #print "Top half", color[i], "max", np.argmax(histr)
 
         mask = np.zeros(h2.shape[:2], np.uint8)
         mask[0:(h2.shape[0] / 2), 0:h2.shape[1]] = 255
@@ -58,7 +54,6 @@ def is_sky(a, path):
             histr = cv2.calcHist([h2], [i], mask, [255], [0, 255])
             plt.plot(histr, color = col)
             plt.xlim([0, 255])
-            #print "Bottom half", color[i], "max", np.argmax(histr)
         return True
 
     else:
