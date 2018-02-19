@@ -4,15 +4,15 @@ def sigm(x):
 def network(X,y):	
 	#X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
 	#y = np.array([[0,1,1,0]]).T
-	syn0 = 2*np.random.random((6,(X.size/6))) - 1
-	syn1 = 2*np.random.random((y.size,1)) - 1
+	syn0 = 2*np.random.random((6,(X.size/6))) - 1 #synapse 0 (in between input and hidden layer)	
+	syn1 = 2*np.random.random((y.size,1)) - 1 #synapse 1 (in between hidden layer and output)
 	for j in xrange(80000):
-		l1 = 1/(1+np.exp(-(np.dot(X,syn0))))
-		l2 = 1/(1+np.exp(-(np.dot(l1,syn1))))
+		l1 = sigm(np.dot(X,syn0)) #hidden layer
+		l2 = sigm(np.dot(l1,syn1)) #output layer
 		l2_delta = (y - l2)*(l2*(1-l2))
 		l1_delta = l2_delta.dot(syn1.T) * (l1 * (1-l1))
-		syn1 += l1.T.dot(l2_delta)#synapse 1 (in between hidden layer and output)
-		syn0 += X.T.dot(l1_delta)#synapse 0 (in between input and hidden layer)	
+		syn1 += l1.T.dot(l2_delta)
+		syn0 += X.T.dot(l1_delta)
 	#print l2
 	
 
