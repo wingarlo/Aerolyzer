@@ -34,7 +34,6 @@ def is_sky(a, path):
     # Create a mask
     data = Data(path)
     img = data.get_rgb(path)
-    tags = data.get_exif(path, True, True)
     mask = np.zeros(img.shape[:2], np.uint8)
     mask[0:(img.shape[0] / 2), 0:img.shape[1]] = 255
     masked_img = cv2.bitwise_and(img, img, mask = mask)
