@@ -76,7 +76,7 @@ def is_sky(a, path):
 	    #print hist1[i]
 	    #plt.plot(hist1[i], color = col)
 	    #plt.xlim([0,255])
-            #print "Top half", color[i], "max", float(np.argmax(hist1[i][6:250]))/255.
+            print "Top half", color[i], "max", float(np.argmax(hist1[i][6:250]))/255.
             max1[i] = np.argmax(hist1[i][6:250])
 
         mask2 = np.zeros(h2.shape[:2], np.uint8)
@@ -86,9 +86,9 @@ def is_sky(a, path):
 	    #print hist2[j][20:]
 	    #plt.plot(hist2[j], color = col)
 	    #plt.xlim([0, 255])
-            #print "Bottom half", color[j], "max", float(np.argmax(hist2[j][6:250]))/255.
+            print "Bottom half", color[j], "max", float(np.argmax(hist2[j][6:250]))/255.
             max2[j] = np.argmax(hist2[j][6:250])
-        X = np.array([float(max1[0]), float(max1[1]), float(max1[2]), float(max2[0]), float(max2[1]), float(max2[2])])
+        X = np.array([float(max1[0])/255., float(max1[1])/255., float(max1[2])/255., float(max2[0])/255., float(max2[1])/255., float(max2[2])/255.])
         l1dup = sigm(np.dot(X,syn0))
         l2dup = sigm(np.dot(l1dup,syn1))
         if float(l2dup) >= 0.5:

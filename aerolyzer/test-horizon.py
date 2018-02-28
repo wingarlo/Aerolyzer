@@ -14,20 +14,17 @@ for i in pics:
     else:
         bad = bad + 1
 
-percent = float(float(good) / float(good+bad))*100.
 print 'valid horizon detection is', percent, 'accurate.'
 
 pics = [f for f in listdir("./images/false-images/") if isfile(join("./images/false-images/", f))]
-good = 0
-bad = 0
 
 for i in pics:
     print "./images/false-images/" + i
     if is_sky(i, "./images/false-images/" + i):
-        good = good + 1
-    else:
         bad = bad + 1
+    else:
+        good = good + 1
 
-percent = float(float(bad) / float(good+bad))*100.
+percent = float(float(good) / float(good+bad))*100.
 print 'invalid horizon detection is', percent, 'accurate.'
 

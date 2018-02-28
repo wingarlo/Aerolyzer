@@ -79,13 +79,13 @@ def main():
     #Retrieve exif data
     if(len(sys.argv) < 2):
         #use default image
-        data    = Data("./phones/s3mini/20140419_182512.jpg")
-        exifData = data.get_exif("./phones/s3mini/20140419_182512.jpg", True, True)
-        program(fxn, data, exifData, "./phones/s3mini/20140419_182512.jpg")
+        data    = Data("./images/good-images/1484949760_19_2615.jpg")
+        exifData = data.get_exif("./images/good-images/1484949760_19_2615.jpg", True, True)
+        program(fxn, data, exifData, "./images/good-images/1484949760_19_2615.jpg")
     elif(len(sys.argv) == 2):
         data    = Data(sys.argv[1])
         exifData = data.get_exif(sys.argv[1], True, False)
-        program(fxn, data, exifData, sys.argv[1])
+        print program(fxn, data, exifData, sys.argv[1])
     elif(len(sys.argv) > 2):
         #error
         print "Please pass only 1 image to this program as an argument"
