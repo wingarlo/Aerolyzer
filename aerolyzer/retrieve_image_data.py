@@ -93,13 +93,20 @@ class RtrvData(object):
         h2 = sky[(sky.shape[0] / 4)*3:(sky.shape[0]), 0:dimx]#bottom half
         hsv = cv2.cvtColor(h2, cv2.COLOR_BGR2HSV)
         clrlst = []
-        for i in xrange(len(hsv)):
+        dimy, dimx = h2.shape[:2]
+        for t in range(1000):
+            temp = []
+            x = int(np.random.random()*10000) % dimx
+            y = int(np.random.random()*10000) % dimy
+            for k in xrange(len(hsv[y][x])):
+                temp.append(hsv[y][x][k])
+            clrlst.append(temp)
+        '''for i in xrange(len(hsv)):
             for j in xrange(len(hsv[i])):
                 a = []
                 for k in xrange(len(hsv[i][j])):
                     a.append(hsv[i][j][k])
-                clrlst.append(a)
-        cv2.imwrite("./haze.jpg",h2)
+                clrlst.append(a)'''
         return clrlst
 
     '''
