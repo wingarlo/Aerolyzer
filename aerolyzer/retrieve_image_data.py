@@ -7,6 +7,7 @@ import os
 import cv2
 import yaml
 import exifread
+import numpy as np
 from datetime import datetime
 
 class RtrvData(object):
@@ -56,8 +57,8 @@ class RtrvData(object):
         return tags
 
     '''
-    Purpose:        The purpose of this function is to retrieve the RGB values from an
-                    image.
+    Purpose:        The purpose of this function is to retrieve the HSV values from an
+                    image's haze layer.
     Inputs:         string pathname
     Outputs:        None
     Returns:        tuple of lists of lists containing RGB values
@@ -89,15 +90,17 @@ class RtrvData(object):
             if diff > largest[0]:   #only getting the largest intensity drop.
                 largest = [diff,i-(it/2)]
         sky = img[0:largest[1], 0:dimx]#cropping out landscape
-        h2 = sky[(sky.shape[0] / 2):(sky.shape[0]), 0:dimx]#bottom half
-        hist2 = [0,0,0]
-        max2 = [0,0,0]
-        mask2 = np.zeros(h2.shape[:2], np.uint8)
-        mask2[0:(h2.shape[0] / 2), 0:h2.shape[1]] = 255
-        for j,col in enumerate(color):
-            hist2[j] = cv2.calcHist([h2], [j], mask2, [255], [0, 255])
-            max2[j] = np.argmax(hist2[j][6:250])
-        return max2
+        h2 = sky[(sky.shape[0] / 4)*3:(sky.shape[0]), 0:dimx]#bottom half
+        hsv = cv2.cvtColor(h2, cv2.COLOR_BGR2HSV)
+        clrlst = []
+        for i in xrange(len(hsv)):
+            for j in xrange(len(hsv[i])):
+                a = []
+                for k in xrange(len(hsv[i][j])):
+                    a.append(hsv[i][j][k])
+                clrlst.append(a)
+        cv2.imwrite("./haze.jpg",h2)
+        return clrlst
 
     '''
     Purpose:        The purpose of this function is to import the contents of the configuration file.
