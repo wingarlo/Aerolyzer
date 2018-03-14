@@ -1,0 +1,32 @@
+# Retrive Image Data Configuration File
+# Description: This configuration file stores information regarding the image data retrieval process.
+
+---
+
+selectTags:
+ - Image Model
+ - Image DateTime
+ - EXIF DateTimeOriginal
+ - EXIF ExifImageWidth
+ - EXIF ExifImageLength
+ - GPS GPSLatitude
+ - GPS GPSLongitude
+ - GPS GPSLatitudeRef
+ - GPS GPSLongitudeRef
+
+stringTags:
+ - image model
+ - gps gpslatitude
+ - gps gpslongitude
+ - gps gpslatituderef
+ - gps gpslongituderef
+
+datetimeTags:
+ - image datetime
+ - exif datetimeoriginal
+
+intTags:
+ - exif exifimagewidth
+ - exif exifimagelength
+
+...
