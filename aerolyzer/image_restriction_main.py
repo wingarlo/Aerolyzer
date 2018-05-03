@@ -12,13 +12,13 @@ from retrieve_image_data import RtrvData as Data
 
 
 def program(fxn, data, exifData, pathname):
-'''
-Purpose:        The purpose of this function is to assert each restriction check
-Inputs:         dict exifData, object functions
-Outputs:        restriction check results
-Returns:        N/A
-Assumptions:    N/A
-'''
+    '''
+    Purpose:        The purpose of this function is to assert each restriction check
+    Inputs:         dict exifData, object functions
+    Outputs:        restriction check results
+    Returns:        N/A
+    Assumptions:    N/A
+    '''
     if not 'image model' in exifData:
         isVerified = {'meetsRest': False, 'error_message': "The image must be a mobile image from a supported device"}
         return isVerified
@@ -50,14 +50,14 @@ Assumptions:    N/A
 
 
 def check_image(filename):
-'''
-Purpose:        The purpose of this main function is to check all image restrictions
-                for use in the Aerolyzer app.
-Inputs:         string filename of image locally
-Outputs:        None
-Returns:        isVerified
-Assumptions:    N/A
-'''
+    '''
+    Purpose:        The purpose of this main function is to check all image restrictions
+                    for use in the Aerolyzer app.
+    Inputs:         string filename of image locally
+    Outputs:        None
+    Returns:        isVerified
+    Assumptions:    N/A
+    '''
     #instantiate classes
     fxn     = Fxn()
     #Retrieve exif data
@@ -68,23 +68,23 @@ Assumptions:    N/A
 
 
 def main():
-'''
-Purpose:        The purpose of this main function is to check all image restrictions and
-                produce the correct error message should one occur.
-Inputs:         string image (as sys.argv[1])
-Outputs:        None
-Returns:        N/A
-Assumptions:    N/A
-'''
+    '''
+    Purpose:        The purpose of this main function is to check all image restrictions and
+                    produce the correct error message should one occur.
+    Inputs:         string image (as sys.argv[1])
+    Outputs:        None
+    Returns:        N/A
+    Assumptions:    N/A
+    '''
     #instantiate classes
     fxn     = Fxn()
 
     #Retrieve exif data
     if(len(sys.argv) < 2):
         #use default image
-        data    = Data("./images/good-images/1484949760_19_2615.jpg")
-        exifData = data.get_exif("./images/good-images/1484949760_19_2615.jpg", True, True)
-        program(fxn, data, exifData, "./images/good-images/1484949760_19_2615.jpg")
+        data    = Data("/home/aero/Desktop/phones/i6s/IMG_0699.jpg")
+        exifData = data.get_exif("/home/aero/Desktop/phones/i6s/IMG_0699.jpg", True, True)
+        print program(fxn, data, exifData, "/home/aero/Desktop/phones/i6s/IMG_0699.jpg")
     elif(len(sys.argv) == 2):
         data    = Data(sys.argv[1])
         exifData = data.get_exif(sys.argv[1], True, False)

@@ -15,29 +15,36 @@ class imgRestFuncs(object):
 
 
     def __init__(self):
-        self.criteria = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
+        self.types = [".png",".jpg",".jpeg",".JPG"]
+        self.devices = ["iPhone 5","iPhone 5s","iPhone 6","iPhone 6s","DROIDX","SM-G730V","iPhone SE","SM-G920V"]
+        self.maxSize = 4000000
+        self.imgWidthMin = 100
+        self.imgLengthMin = 100
+        self.imgWidthMax = 6000
+        self.imgLengthMax = 6000
+        #self.criteria = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
 
 
     def sigm(self, x):
-    '''
-    Purpose:        sigmoid function that takes in a value and returns a value from 0 to 1
-    Inputs:         float
-    Outputs:        None
-    Returns:        Float between 0, 1
-    Assumptions:    N/A
-    '''
+        '''
+        Purpose:        sigmoid function that takes in a value and returns a value from 0 to 1
+        Inputs:         float
+        Outputs:        None
+        Returns:        Float between 0, 1
+        Assumptions:    N/A
+        '''
         return 1 / (1 + np.exp(-x))
 
     def is_device(self, device):
-    '''
-    Purpose:        The purpose of this function is to determine whether or not the device the
-                    image was taken on is an accepted mobile device.
-    Inputs:         string device
-    Outputs:        None
-    Returns:        Boolean
-    Assumptions:    N/A
-    '''
-        if device in self.criteria['acceptedMobileDevices']:
+        '''
+        Purpose:        The purpose of this function is to determine whether or not the device the
+                        image was taken on is an accepted mobile device.
+        Inputs:         string device
+        Outputs:        None
+        Returns:        Boolean
+        Assumptions:    N/A
+        '''
+        if device in self.devices:
             return True
         else:
             return False
@@ -45,14 +52,14 @@ class imgRestFuncs(object):
 
 
     def is_edited(self, modified, created):
-    '''
-    Purpose:        The purpose of this function is to determine whether or not the image was
-                    altered from its original form. I.e. do the modification and creation dates coincide.
-    Inputs:         datetime created, datetime modified
-    Outputs:        None
-    Returns:        Boolean
-    Assumptions:    N/A
-    '''
+        '''
+        Purpose:        The purpose of this function is to determine whether or not the image was
+                        altered from its original form. I.e. do the modification and creation dates coincide.
+        Inputs:         datetime created, datetime modified
+        Outputs:        None
+        Returns:        Boolean
+        Assumptions:    N/A
+        '''
         if (created == modified):
             return True
         else:
@@ -60,74 +67,74 @@ class imgRestFuncs(object):
 
 
     def is_landscape(self, pathname):
-    '''
-    Purpose:        The purpose of this function is to determine whether or not the image
-                    contains a direct landscape with sky and view.
-    Inputs:         pathname for image 
-    Outputs:        None
-    Returns:        Boolean
-    Assumptions:    N/A
-    '''
+        '''
+        Purpose:        The purpose of this function is to determine whether or not the image
+                        contains a direct landscape with sky and view.
+        Inputs:         pathname for image 
+        Outputs:        None
+        Returns:        Boolean
+        Assumptions:    N/A
+        '''
         img = cv2.imread(pathname,1)
         return self._is_sky(img)
 
 
     def is_size(self, fileSize):
-    '''
-    Purpose:        The purpose of this function is to determine whether or not the size of
-                    the image is less than or equal to 200kb.
-    Inputs:         dict exifData, int imgMaxSize, int imgMaxSizeBytesShort,
-                    string fileSize
-    Outputs:        None
-    Returns:        Boolean
-    Assumptions:    N/A
-    '''
-        if(fileSize > self.criteria['imgMaxSizeNumber']):
+        '''
+        Purpose:        The purpose of this function is to determine whether or not the size of
+                        the image is less than or equal to 200kb.
+        Inputs:         dict exifData, int imgMaxSize, int imgMaxSizeBytesShort,
+                        string fileSize
+        Outputs:        None
+        Returns:        Boolean
+        Assumptions:    N/A
+        '''
+        if(fileSize > self.maxSize):
             return False
         else:
             return True
 
 
     def is_type(self, fileType):
-    '''
-    Purpose:        The purpose of this function  is to determine whether or not the image is
-                    an accepted file type.
-    Inputs:         string fileType
-    Outputs:        None
-    Returns:        Boolean
-    Assumptions:    N/A
-    '''
-        if fileType in self.criteria['acceptedFileTypes']:
+        '''
+        Purpose:        The purpose of this function  is to determine whether or not the image is
+                        an accepted file type.
+        Inputs:         string fileType
+        Outputs:        None
+        Returns:        Boolean
+        Assumptions:    N/A
+        '''
+        if fileType in self.types:
             return True
         else:
             return False
 
 
     def is_res(self, imageWidth, imageLength):
-    '''
-    Purpose:        The purpose of this function is to determine whether or not the image
-                    exceeds the minimum resolution.
-    Inputs:         int imageWidth, int imageLength
-    Outputs:        None
-    Returns:        Boolean
-    Assumptions:    N/A
-    '''
-        if (imageWidth >= self.criteria['imgWidthMin']) and (imageLength >= self.criteria['imgLengthMin']):
-            if (imageWidth <= self.criteria['imgWidthMax']) and (imageLength <= self.criteria['imgLengthMax']):
+        '''
+        Purpose:        The purpose of this function is to determine whether or not the image
+                        exceeds the minimum resolution.
+        Inputs:         int imageWidth, int imageLength
+        Outputs:        None
+        Returns:        Boolean
+        Assumptions:    N/A
+        '''
+        if (imageWidth >= self.imgWidthMin) and (imageLength >= self.imgLengthMin):
+            if (imageWidth <= self.imgWidthMax) and (imageLength <= self.imgLengthMax):
                 return True
         else:
             return False
 
 
     def _is_sky(self, img):
-    '''
-    Purpose:        The purpose of this function is to determine whether or not the image contains
-                    a valid sky or not. 
-    Inputs:         numpy.ndarray (loaded image information)
-    Outputs:        None
-    Returns:        Boolean (valid or invalid image)
-    Assumptions:    N/A
-    '''
+        '''
+        Purpose:        The purpose of this function is to determine whether or not the image contains
+                        a valid sky or not. 
+        Inputs:         numpy.ndarray (loaded image information)
+        Outputs:        None
+        Returns:        Boolean (valid or invalid image)
+        Assumptions:    N/A
+        '''
 
         syn0 = np.array([[0.6106635051820115, -1.2018987127529588, -10.344605820189082, 1.1911213385074928, -6.818421664371254, 0.7888012143578024, 0.1930026599192343, 2.3468732267729644, -0.8629627172245428, -4.855127665505846, -8.782456796605247, -6.495787542595586, -1.42453153150294, -0.91145196348796, -0.34523737705411006],
 [-1.3963274415314406, -1.4612339780784143, -2.9000212540397685, -3.9905541370795463, -3.4490261869089287, -4.30542395055999, -2.6069427860345145, 7.201038210239841, -2.205826668689026, -2.493364425571145, -1.9813891706545306, -2.235792731073901, -7.475941696773453, -2.68683663270719, 4.173252030927632], 
@@ -201,13 +208,13 @@ class imgRestFuncs(object):
 
 
     def _import_yaml(self, confFile):
-    '''
-    Purpose:        The purpose of this function is to import the contents of the configuration file.
-    Inputs:         string conf_file
-    Outputs:        None
-    Returns:        reference to configuration file
-    Assumptions:    N/A
-    '''
+        '''
+        Purpose:        The purpose of this function is to import the contents of the configuration file.
+        Inputs:         string conf_file
+        Outputs:        None
+        Returns:        reference to configuration file
+        Assumptions:    N/A
+        '''
         with open(confFile, 'r') as f:
             doc = yaml.load(f)
             f.close()
