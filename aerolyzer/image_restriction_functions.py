@@ -15,14 +15,15 @@ class imgRestFuncs(object):
 
 
     def __init__(self):
-        self.types = [".png",".jpg",".jpeg",".JPG"]
-        self.devices = ["iPhone 5","iPhone 5s","iPhone 6","iPhone 6s","DROIDX","SM-G730V","iPhone SE","SM-G920V"]
-        self.maxSize = 4000000
-        self.imgWidthMin = 100
-        self.imgLengthMin = 100
-        self.imgWidthMax = 6000
-        self.imgLengthMax = 6000
-        #self.criteria = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
+        restrict_conf = {'imgLengthMax': 6000, 'imgWidthMin': 100, 'acceptedFileTypes': ['.jpeg', '.jpg', '.png', '.JPG'], 'acceptedMobileDevices': ['iPhone 5', 'iPhone 5s', 'iPhone 6', 'iPhone 6s', 'DROIDX', 'SM-G730V', 'iPhone SE', 'SM-G920V'], 'imgMaxSizeNumber': 4000000, 'imgWidthMax': 6000, 'imgLengthMin': 100}
+        if os.path.exists(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml"):
+            self.criteria = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
+        else:
+            if not os.path.exists(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/"):
+                os.makedirs(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/")
+            with open(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml", 'w') as outfile:
+                yaml.dump(restrict_conf, outfile, default_flow_style=False)
+        self.criteria = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
 
 
     def sigm(self, x):
@@ -44,7 +45,7 @@ class imgRestFuncs(object):
         Returns:        Boolean
         Assumptions:    N/A
         '''
-        if device in self.devices:
+        if device in self.criteria['acceptedMobileDevices']:
             return True
         else:
             return False
@@ -89,7 +90,7 @@ class imgRestFuncs(object):
         Returns:        Boolean
         Assumptions:    N/A
         '''
-        if(fileSize > self.maxSize):
+        if(fileSize > self.criteria['imgMaxSizeNumber']):
             return False
         else:
             return True
@@ -104,7 +105,7 @@ class imgRestFuncs(object):
         Returns:        Boolean
         Assumptions:    N/A
         '''
-        if fileType in self.types:
+        if fileType in self.criteria['acceptedFileTypes']:
             return True
         else:
             return False
@@ -119,8 +120,8 @@ class imgRestFuncs(object):
         Returns:        Boolean
         Assumptions:    N/A
         '''
-        if (imageWidth >= self.imgWidthMin) and (imageLength >= self.imgLengthMin):
-            if (imageWidth <= self.imgWidthMax) and (imageLength <= self.imgLengthMax):
+        if (imageWidth >= self.criteria['imgWidthMin']) and (imageLength >= self.criteria['imgLengthMin']):
+            if (imageWidth <= self.criteria['imgWidthMax']) and (imageLength <= self.criteria['imgLengthMax']):
                 return True
         else:
             return False
