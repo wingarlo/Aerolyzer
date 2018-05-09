@@ -14,15 +14,19 @@ class RtrvData(object):
     'Class containing all image restriction functions'
 
     def __init__(self, pathPassed):
-        self.selectTags = ["Image Model","Image DateTime","EXIF DateTimeOriginal","EXIF ExifImageWidth","EXIF ExifImageLength","GPS GPSLatitude","GPS GPSLongitude","GPS GPSLatitudeRef","GPS GPSLongitudeRef"]
-        self.stringTags = ["image model","gps gpslatitude","gps gpslongitude","gps gpslatituderef","gps gpslongituderef"]
-        self.datetimeTags = ["image datetime","exif datetimeoriginal"]
-        self.intTags = ["exif exifimagewidth","exif exifimagelength"]
-        #self.data = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/retrieve_image_data_conf.yaml")
-        #try:
-        #    os.path.exists(pathPassed)
-        #except ImportError:
-        #    pass
+        retrieve_conf = {'selectTags': ['Image Model', 'Image DateTime', 'EXIF DateTimeOriginal', 'EXIF ExifImageWidth', 'EXIF ExifImageLength', 'GPS GPSLatitude', 'GPS GPSLongitude', 'GPS GPSLatitudeRef', 'GPS GPSLongitudeRef'], 'intTags': ['exif exifimagewidth', 'exif exifimagelength'], 'datetimeTags': ['image datetime', 'exif datetimeoriginal'], 'stringTags': ['image model', 'gps gpslatitude', 'gps gpslongitude', 'gps gpslatituderef', 'gps gpslongituderef']}
+        if os.path.exists(os.getcwd() + "/../../config/retrieve_image_data_conf.yaml"):
+            self.data = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/retrieve_image_data_conf.yaml")
+        else:
+            if not os.path.exists(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/"):
+                os.makedirs(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/")
+            with open(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/retrieve_image_data_conf.yaml", 'w') as outfile:
+                yaml.dump(retrieve_conf, outfile, default_flow_style=False)
+        self.data = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/retrieve_image_data_conf.yaml")
+        try:
+            os.path.exists(pathPassed)
+        except ImportError:
+            pass
 
 
     def _get_all_exif(self, pathname):
@@ -53,7 +57,7 @@ class RtrvData(object):
         tags = {};
         allTags = self._get_all_exif(pathname)
         for key, value in allTags.iteritems():
-            for entry in self.selectTags:
+            for entry in self.data["selectTags"]:
                 if (key == entry):
                     tags[key.lower()] = value
         if setTypes is True:
@@ -160,17 +164,17 @@ class RtrvData(object):
         Assumptions:    N/A
         '''
         for key, value in tags.iteritems():
-            for entry in self.stringTags:
+            for entry in self.data["stringTags"]:
                 if(key == entry):
                     tags[key] = str(value)
-            for entry in self.datetimeTags:
+            for entry in self.data["datetimeTags"]:
                 if(key == entry):
                     stringDate = str(value)
                     if dateToString is True:
                         tags[key] = stringDate
                     else:
                         tags[key] = datetime.strptime(stringDate, '%Y:%m:%d %H:%M:%S')
-            for entry in self.intTags:
+            for entry in self.data["intTags"]:
                 if(key == entry):
                     strKey = str(value)
                     tags[key] = int(strKey)
