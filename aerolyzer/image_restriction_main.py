@@ -84,7 +84,7 @@ def main():
         #use default image
         data    = Data("/home/aero/Desktop/phones/i6s/IMG_0699.jpg")
         exifData = data.get_exif("/home/aero/Desktop/phones/i6s/IMG_0699.jpg", True, True)
-        print program(fxn, data, exifData, "/home/aero/Desktop/phones/i6s/IMG_0699.jpg")
+        program(fxn, data, exifData, "/home/aero/Desktop/phones/i6s/IMG_0699.jpg")
     elif(len(sys.argv) == 2):
         data    = Data(sys.argv[1])
         exifData = data.get_exif(sys.argv[1], True, False)
