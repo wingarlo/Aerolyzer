@@ -16,7 +16,7 @@ def program(fxn, data, exifData, pathname):
     Purpose:        The purpose of this function is to assert each restriction check
     Inputs:         dict exifData, object functions
     Outputs:        restriction check results
-    Returns:        N/A
+    Returns:        isVerified
     Assumptions:    N/A
     '''
     if not 'image model' in exifData:
@@ -49,19 +49,19 @@ def program(fxn, data, exifData, pathname):
     return isVerified
 
 
-def check_image(filename):
+def check_image(filename,confPath="."):
     '''
     Purpose:        The purpose of this main function is to check all image restrictions
                     for use in the Aerolyzer app.
-    Inputs:         string filename of image locally
+    Inputs:         string filename of image locally, optional string confPath
     Outputs:        None
     Returns:        isVerified
     Assumptions:    N/A
     '''
     #instantiate classes
-    fxn     = Fxn()
+    fxn     = Fxn(confPath)
     #Retrieve exif data
-    data    = Data(filename)
+    data    = Data(confPath)
     exifData = data.get_exif(filename, True, False)
     isVerified = program(fxn, data, exifData, filename)
     return isVerified
@@ -71,27 +71,28 @@ def main():
     '''
     Purpose:        The purpose of this main function is to check all image restrictions and
                     produce the correct error message should one occur.
-    Inputs:         string image (as sys.argv[1])
+    Inputs:         string image (as sys.argv[1]), Config path(as sys.argv[2])
     Outputs:        None
     Returns:        N/A
     Assumptions:    N/A
     '''
     #instantiate classes
-    fxn     = Fxn()
+    
 
     #Retrieve exif data
     if(len(sys.argv) < 2):
-        #use default image
-        data    = Data("/home/aero/Desktop/phones/i6s/IMG_0699.jpg")
-        exifData = data.get_exif("/home/aero/Desktop/phones/i6s/IMG_0699.jpg", True, True)
-        program(fxn, data, exifData, "/home/aero/Desktop/phones/i6s/IMG_0699.jpg")
-    elif(len(sys.argv) == 2):
-        data    = Data(sys.argv[1])
-        exifData = data.get_exif(sys.argv[1], True, False)
-        program(fxn, data, exifData, sys.argv[1])
-    elif(len(sys.argv) > 2):
         #error
-        print "Please pass only 1 image to this program as an argument"
+        print "Please pass an image path as an argument with an optional config path"
+
+    elif(len(sys.argv) == 2):
+        check_image(sys.argv[1])
+
+    elif(len(sys.argv) == 3):
+        check_image(sys.argv[1],sys.argv[2])
+
+    elif(len(sys.argv) > 3):
+        #error
+        print "Please pass only 1 image to this program and an optional config path as arguments"
 
 if __name__ == '__main__':
     main()

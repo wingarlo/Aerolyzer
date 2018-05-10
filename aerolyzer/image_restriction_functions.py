@@ -14,16 +14,16 @@ class imgRestFuncs(object):
     'Class containing all image restriction functions'
 
 
-    def __init__(self):
+    def __init__(self, confPath):
         restrict_conf = {'imgLengthMax': 6000, 'imgWidthMin': 100, 'acceptedFileTypes': ['.jpeg', '.jpg', '.png', '.JPG'], 'acceptedMobileDevices': ['iPhone 5', 'iPhone 5s', 'iPhone 6', 'iPhone 6s', 'DROIDX', 'SM-G730V', 'iPhone SE', 'SM-G920V'], 'imgMaxSizeNumber': 4000000, 'imgWidthMax': 6000, 'imgLengthMin': 100}
-        if os.path.exists(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml"):
-            self.criteria = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
+        if os.path.exists(confPath + "/config/image_restriction_conf.yaml"):
+            self.criteria = self._import_yaml(confPath + "/config/image_restriction_conf.yaml")
         else:
-            if not os.path.exists(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/"):
-                os.makedirs(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/")
-            with open(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml", 'w') as outfile:
+            if not os.path.exists(confPath + "/config/"):
+                os.makedirs(confPath + "/config/")
+            with open(confPath + "/config/image_restriction_conf.yaml", 'w') as outfile:
                 yaml.dump(restrict_conf, outfile, default_flow_style=False)
-        self.criteria = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
+        self.criteria = self._import_yaml(confPath + "/config/image_restriction_conf.yaml")
 
 
     def sigm(self, x):

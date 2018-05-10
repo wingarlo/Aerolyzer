@@ -15,14 +15,14 @@ class RtrvData(object):
 
     def __init__(self, pathPassed):
         retrieve_conf = {'selectTags': ['Image Model', 'Image DateTime', 'EXIF DateTimeOriginal', 'EXIF ExifImageWidth', 'EXIF ExifImageLength', 'GPS GPSLatitude', 'GPS GPSLongitude', 'GPS GPSLatitudeRef', 'GPS GPSLongitudeRef'], 'intTags': ['exif exifimagewidth', 'exif exifimagelength'], 'datetimeTags': ['image datetime', 'exif datetimeoriginal'], 'stringTags': ['image model', 'gps gpslatitude', 'gps gpslongitude', 'gps gpslatituderef', 'gps gpslongituderef']}
-        if os.path.exists(os.getcwd() + "/../../config/retrieve_image_data_conf.yaml"):
-            self.data = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/retrieve_image_data_conf.yaml")
+        if os.path.exists(pathPassed + "/config/retrieve_image_data_conf.yaml"):
+            self.data = self._import_yaml(pathPassed + "/config/retrieve_image_data_conf.yaml")
         else:
-            if not os.path.exists(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/"):
-                os.makedirs(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/")
-            with open(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/retrieve_image_data_conf.yaml", 'w') as outfile:
+            if not os.path.exists(pathPassed + "/config/"):
+                os.makedirs(os.getcwd() + pathPassed + "/config/")
+            with open(pathPassed + "/config/retrieve_image_data_conf.yaml", 'w') as outfile:
                 yaml.dump(retrieve_conf, outfile, default_flow_style=False)
-        self.data = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/retrieve_image_data_conf.yaml")
+        self.data = self._import_yaml(pathPassed + "/config/retrieve_image_data_conf.yaml")
         try:
             os.path.exists(pathPassed)
         except ImportError:
